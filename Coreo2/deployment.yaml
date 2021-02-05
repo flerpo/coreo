@@ -1,0 +1,48 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: fou-web
+
+  annotations:
+    sidecar.jaegertracing.io/inject: jaeger
+
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: fou-web
+          image: eu.gcr.io/fou-delivery/fou-web
+
+          ports:
+            - name: http
+              containerPort: 3000
+
+          env:
+            - name: AFA_APSIS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: apsis-api-key
+                  key: api-key
+
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 500Mi
+            requests:
+              cpu: 20m
+              memory: 80Mi
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 3
+            periodSeconds: 3
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 3
+            periodSeconds: 3
