@@ -17,12 +17,13 @@ namespace Coreo
         {
             var config = new ProducerConfig
             {
-                BootstrapServers = "localhost:9092",
+                BootstrapServers = "my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092",
                 ClientId = "moop",
             };
             using var producer = new ProducerBuilder<Null, string>(config).Build();
             producer.Produce(
                 "meep", new Message<Null, string> { Value = "hello rami" });
+            Console.WriteLine("Sent message to kafka");
             producer.Flush();
         }
        

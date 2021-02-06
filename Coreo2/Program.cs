@@ -34,7 +34,7 @@ namespace Coreo
             using (var consumer = new ConsumerBuilder<Ignore, string>(config)
                 // Note: All handlers are called on the main .Consume thread.
                 .SetErrorHandler((_, e) => Console.WriteLine($"Error: {e.Reason}"))
-                .SetStatisticsHandler((_, json) => Console.WriteLine($"Statistics: {json}"))
+                //.SetStatisticsHandler((_, json) => Console.WriteLine($"Statistics: {json}"))
                 .SetPartitionsAssignedHandler((c, partitions) =>
                 {
                     Console.WriteLine($"Assigned partitions: [{string.Join(", ", partitions)}]");
@@ -121,7 +121,7 @@ namespace Coreo
             }
 
             var mode = args[0];
-            var brokerList = "localhost:9092";
+            var brokerList = "my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092";
             var topics = new List<string>(new string[] { "meep"});
 
             Console.WriteLine($"Started consumer, Ctrl-C to stop consuming");

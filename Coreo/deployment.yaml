@@ -1,22 +1,22 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: subscribe
+  name: publish
   labels: 
-    app: subscribe
+    app: publish
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: subscribe
+      app: publish
   template:
     metadata:
       labels:
-        app: subscribe
+        app: publish
     spec:
       containers:
-        - name: subscribe
-          image: flerpo/kafka:subscribe
+        - name: publish
+          image: flerpo/kafka:publish
           resources:
             limits:
               cpu: 1000m

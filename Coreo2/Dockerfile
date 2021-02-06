@@ -19,4 +19,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
 WORKDIR /app
 COPY --from=build /app/out ./
 EXPOSE 80
-ENTRYPOINT ["dotnet", "Coreo.dll"]
+ENTRYPOINT ["dotnet", "Coreo.dll", "subscribe"]
