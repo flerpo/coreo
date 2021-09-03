@@ -13,6 +13,8 @@ namespace Coreo
             ConnectToKafka();
         }
 
+        
+
         private static void ConnectToKafka()
         {
             var config = new ProducerConfig
